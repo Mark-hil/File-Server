@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Upload New Document{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">home</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'upload_document' %}">{{ upload.name }}</a></li>
+  <li class="breadcrumb-item active">New Document</li>
+{% endblock %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+
+    {% include 'includes/form.html' %}
+
+    <button type="submit" class="btn btn-success">Upload</button>
+  </form>
+{% endblock %}
+
+
+
+  

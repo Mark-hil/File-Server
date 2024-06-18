@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %} 
+{% block breadcrumb %}
+  <li class="breadcrumb-item active">Home</li>
+{% endblock %}
+
+{% block content %}
+
+    <div class="mb-4">
+        <a href="{% url 'upload_document' %}" class="btn btn-primary">Upload Document</a>
+    </div>
+
+    {% comment %} <form method="GET" action="{% url 'home' %}" class="mb-4">
+      <input type="text" name="search" placeholder="Search documents..." class="form-control" value="{{ request.GET.search }}">
+      <button type="submit" class="btn btn-primary mt-2">Search</button>
+    </form> {% endcomment %}
+    <input type="text" id="searchInput" placeholder="Search documents..." class="form-control mb-4">
+
+    <table class="table">
+        <thead class="thead-inverse">
+          <tr>
+            <th></th>
+            <th>Title</th>
+            <th>Downloads</th>
+            <th>Emails Sent</th>            
+            <th>Download</th>
+            <th>Send Email</th>
+          </tr>
+        </thead>
+        <tbody id="documentList">
+          {% for document in page_obj %}
+            <tr>
+              <td>
+                <td>{{ document.title }}<br>
+                <small class="text-muted d-block">{{ document.description }}</small>
+              </td>
+              <td class="align-middle">{{ document.download_count }}</td>
+              <td class="align-middle">{{ document.email_count }}</td>
+              <td>
+                <form method="get" action="{% url 'download_document' document.id %}">
+                  <button type="submit" class="btn btn-success">Download</button>
+                </form>
+              </td>
+              <td>
+                <a href="{% url 'send_email' document.id %}">Send Email</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+    
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+    <script src="{% static 'js/search.js' %}"></script>
+{% endblock %}

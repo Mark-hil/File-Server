@@ -1,0 +1,16 @@
+body {
+    background-image: url(../img/denim.png);
+}
+
+.logo {
+    font-family: 'Peralta', cursive;
+}
+
+.logo a {
+    color: rgba(253, 247, 247, 0.9);
+}
+
+.logo a:hover,
+.logo a:active {
+    text-decoration: none;
+}
