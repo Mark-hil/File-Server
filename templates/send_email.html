@@ -10,13 +10,23 @@
 {% endblock %}
 
     {% block content %}
-        <h2>Send Document via Email</h2>
+        {% comment %} <h2>Send Document via Email</h2>
         <form method="post">
             {% csrf_token %}
             <label for="recipient_email">Recipient Email:</label>
             <input type="email" id="recipient_email" name="recipient_email" required>
             <button type="submit" class="btn btn-success">Send</button>
-        </form>
+        </form> {% endcomment %}
+        <h2>You want to Send {{ document.title }} </h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="recipient_emails">Recipient Email</label><br>
+            <label for="recipient_emails">For multiple Emails use (comma separated):</label>
+            <textarea class="form-control" id="recipient_emails" name="recipient_emails" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send</button>
+    </form>
     {% endblock %}
     </div>
   </body>
